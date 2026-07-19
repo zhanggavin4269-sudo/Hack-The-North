@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Platformer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <!-- HUD when playing -->
+        <div class="ui-layer" id="hud" style="display: none;">
+            <p class="instructions" id="instructions-text">Use WASD/Arrows to move. ESC to pause.</p>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="screen">
+            <h1>NEON JUMP</h1>
+            <div class="menu-buttons">
+                <button id="btn-play" class="btn primary">PLAY</button>
+                <button id="btn-editor" class="btn secondary">LEVEL EDITOR</button>
+            </div>
+        </div>
+
+        <!-- Level Select -->
+        <div id="level-select" class="screen hidden">
+            <h2>SELECT LEVEL</h2>
+            <div id="level-grid" class="grid"></div>
+            <button id="btn-sel-back" class="btn back">BACK</button>
+        </div>
+
+        <!-- Pause Menu -->
+        <div id="pause-menu" class="screen hidden backdrop-blur">
+            <h2>PAUSED</h2>
+            <button id="btn-resume" class="btn primary">RESUME</button>
+            <button id="btn-exit" class="btn secondary">EXIT TO MENU</button>
+        </div>
+
+        <!-- Editor Menu -->
+        <div id="editor-menu" class="screen hidden">
+            <h2>CUSTOM LEVELS</h2>
+            <div id="custom-level-list" class="list"></div>
+            <button id="btn-new-level" class="btn-corner">+</button>
+            <button id="btn-edit-back" class="btn back">BACK</button>
+        </div>
+
+        <!-- Editor UI Overlay -->
+        <div id="editor-ui" class="hidden">
+            <input type="text" id="level-name-input" placeholder="Level Name" onkeydown="event.stopPropagation()" style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%); font-size: 1.5rem; font-weight: bold; background: rgba(15,23,42,0.8); border: 2px solid #818cf8; color: white; border-radius: 8px; padding: 5px 15px; text-align: center; font-family: Outfit; z-index: 30; outline: none; width: 300px;">
+            <div class="toolbar" id="editor-toolbar">
+                <button class="tool-btn active" data-tool="platform">Platform</button>
+                <button class="tool-btn" data-tool="lava">Lava</button>
+                <button class="tool-btn" data-tool="moving">Moving Plat</button>
+                <button class="tool-btn" data-tool="movingLava">Moving Lava</button>
+                <button class="tool-btn" data-tool="key">Coin</button>
+                <button class="tool-btn" data-tool="portal">Door</button>
+                <button class="tool-btn" data-tool="start">Start Pos</button>
+                <button class="tool-btn" data-tool="eraser">Eraser</button>
+                <div style="color: white; margin-left: 20px; align-self: center; font-size: 0.9rem; font-weight: bold; display: flex; align-items: center; gap: 5px;">
+                    Lap(s): <input type="number" id="lap-time" value="3" min="1" max="20" style="width: 40px; background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 2px; font-family: Outfit;">
+                    Shape: 
+                    <select id="path-shape" style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; padding: 2px; font-family: Outfit;">
+                        <option value="line" style="color: black;">Line</option>
+                        <option value="circle" style="color: black;">Oval</option>
+                        <option value="square" style="color: black;">Square</option>
+                        <option value="triangle" style="color: black;">Triangle</option>
+                    </select>
+                    <label style="display:flex; align-items:center; gap:2px; margin-left: 5px; cursor: pointer;"><input type="checkbox" id="path-reverse"> Rev</label>
+                </div>
+            </div>
+            <button id="btn-save-level" class="btn-corner-top">SAVE & EXIT</button>
+        </div>
+
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
